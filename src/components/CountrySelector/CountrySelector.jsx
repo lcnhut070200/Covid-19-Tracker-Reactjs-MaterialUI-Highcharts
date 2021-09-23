@@ -17,9 +17,9 @@ const CountrySelector = ({ value, handleOnchange, countries }) => {
         onChange={handleOnchange}
         inputProps={{ id: "country-selector", name: "country" }}
       >
-        {countries.map((country) => {
+        {countries.map((country, index) => {
           return (
-            <option value={country.ISO2.toLowerCase()}>
+            <option key={index} value={country.ISO2.toLowerCase()}>
               {country.Country}
             </option>
           );
