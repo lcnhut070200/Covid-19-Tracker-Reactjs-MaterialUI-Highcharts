@@ -23,9 +23,6 @@ const generateOptions = (data) => {
       title: {
         text: null,
       },
-      labels: {
-        align: "right",
-      },
     },
     tooltip: {
       headerFormat: '<span style="font-size:10px">{point.key}</span><table>',
@@ -53,13 +50,14 @@ const generateOptions = (data) => {
 
 const LineChart = ({ data }) => {
   const [options, setOptions] = useState({});
+
   useEffect(() => {
     setOptions(generateOptions(data));
   }, [data]);
 
   return (
     <div>
-      <HighchartsReact highchart={Highchart} options={generateOptions(data)} />
+      <HighchartsReact highchart={Highchart} options={options} />
     </div>
   );
 };

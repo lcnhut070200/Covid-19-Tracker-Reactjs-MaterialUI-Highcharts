@@ -11,7 +11,6 @@ function App() {
 
   useEffect(() => {
     getCountries().then((res) => {
-      // console.log(res.data);
       setCountries(res.data);
 
       setSelectedCountryID("vn");
