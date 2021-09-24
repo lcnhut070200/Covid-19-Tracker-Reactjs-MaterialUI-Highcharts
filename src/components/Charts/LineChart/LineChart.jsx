@@ -2,6 +2,7 @@ import HighchartsReact from "highcharts-react-official";
 import Highchart from "highcharts";
 import { React, useState, useEffect } from "react";
 import moment from "moment";
+import { ButtonGroup, Button } from "@material-ui/core";
 
 const generateOptions = (data) => {
   const categories = data.map((item) => moment(item.Date).format("DD/MM/YYYY"));
@@ -50,13 +51,55 @@ const generateOptions = (data) => {
 
 const LineChart = ({ data }) => {
   const [options, setOptions] = useState({});
+  const [reportType, setReportType] = useState("all");
 
   useEffect(() => {
-    setOptions(generateOptions(data));
-  }, [data]);
+    let customData = [];
+    // Xử lý thay đổi option ngày
+    switch (reportType) {
+      case "all":
+        customData = data;
+        break;
+      case "30":
+        customData = data.slice(data.length - 30);
+        break;
+      case "7":
+        customData = data.slice(data.length - 7);
+        break;
+      default:
+        customData = data;
+        break;
+    }
+
+    setOptions(generateOptions(customData));
+  }, [data, reportType]);
 
   return (
     <div>
+      <ButtonGroup
+        size="small"
+        style={{ display: "flex", justifyContent: "flex-end" }}
+      >
+        <Button
+          color={reportType === "all" ? "secondary" : ""}
+          onClick={() => setReportType("all")}
+        >
+          Tất cả
+        </Button>
+        <Button
+          color={reportType === "30" ? "secondary" : ""}
+          onClick={() => setReportType("30")}
+        >
+          30 ngày
+        </Button>
+        <Button
+          color={reportType === "7" ? "secondary" : ""}
+          onClick={() => setReportType("7")}
+        >
+          7 ngày
+        </Button>
+      </ButtonGroup>
+
       <HighchartsReact highchart={Highchart} options={options} />
     </div>
   );

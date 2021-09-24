@@ -29,6 +29,7 @@ function App() {
 
       getReportByCountry(Slug).then((res) => {
         res.data.pop();
+        console.log(res.data);
         setReport(res.data);
       });
     }
