@@ -29,7 +29,6 @@ function App() {
 
       getReportByCountry(Slug).then((res) => {
         res.data.pop();
-        console.log(res.data);
         setReport(res.data);
       });
     }
@@ -43,7 +42,7 @@ function App() {
         value={selectedCountryID}
       />
       <Highlight report={report} />
-      <Summary report={report} />
+      <Summary report={report} selectedCountryID={selectedCountryID} />
     </>
   );
 }
